@@ -1,0 +1,15 @@
+#include <STC15F2K60S2.h>
+
+void main(){
+	P2 = 0xA0;
+	P0 = 0x00;
+	P2 = 0x00;
+	
+	P2 = 0x80;
+	P0 = 0xaa;
+	P2 = 0x00;
+	
+	P2 = 0x80;
+	P0 = ~0xE7;
+	P2 = 0x00;
+}
