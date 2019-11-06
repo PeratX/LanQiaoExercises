@@ -34,43 +34,34 @@ unsigned char mode = 0; //0 -> right to left, 1 -> left to right
 void main()
 {
 	char i;
+
 	P2 = 0xA0;
 	P0 = 0x00;
 	P2 = 0x00;
+
 	while (1)
 	{
 		keyRead();
 		if (trg & 0x01)
 		{
-			if (mode == 0)
-			{
-				mode = 1;
-			}
-			else
-			{
-				mode = 0;
-			}
+			mode = (mode == 0) ? 1 : 0;
 		}
 
 		P2 = 0x80;
 		P0 = ~(0x80 >> i);
 		P2 = 0x00;
+
 		if (mode == 0)
 		{
 			i++;
-			if (i == 8)
-			{
-				i = 0;
-			}
+			i = (i == 8) ? 0 : i;
 		}
 		else
 		{
 			i--;
-			if (i == -1)
-			{
-				i = 7;
-			}
+			i = (i == -1) ? 7 : i;
 		}
+
 		delay1000ms();
 	}
 }

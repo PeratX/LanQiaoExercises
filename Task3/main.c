@@ -1,5 +1,4 @@
 #include <STC15F2K60S2.h>
-
 #include "intrins.h"
 
 unsigned char code t_display[] = {
@@ -59,10 +58,7 @@ void main()
 		if (trg & 0x01)
 		{
 			currentValue++;
-			if (currentValue > 9)
-			{
-				currentValue = 9;
-			}
+			currentValue = (currentValue > 9) ? 9 : currentValue;
 			P2 = 0xe0;
 			P0 = ~t_display[currentValue];
 			P2 = 0x00;
@@ -70,18 +66,18 @@ void main()
 			P2 = 0x80;
 			P0 = ~0x02;
 			P2 = 0x00;
+
 			delay1000ms();
+
 			P2 = 0x80;
 			P0 = 0xFF;
 			P2 = 0x00;
 		}
+
 		if (trg & 0x02)
 		{
 			currentValue--;
-			if (currentValue < 0)
-			{
-				currentValue = 0;
-			}
+			currentValue = (currentValue < 0) ? 0 : currentValue;
 			P2 = 0xe0;
 			P0 = ~t_display[currentValue];
 			P2 = 0x00;
@@ -89,7 +85,9 @@ void main()
 			P2 = 0x80;
 			P0 = ~0x01;
 			P2 = 0x00;
+
 			delay1000ms();
+
 			P2 = 0x80;
 			P0 = 0xFF;
 			P2 = 0x00;
